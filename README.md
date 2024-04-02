@@ -4,7 +4,8 @@ API untuk toko online
 
 # List of endpoint
 
-- `/auth/` -- admin authenticatio   n
+- `/register/` -- User registrations
+- `/auth/` -- admin authentication
 - `/admin/product` -- product management (CRUD product)
 - `/admin/transaction` -- transaction list made by user/customer
 - `/cart` -- customer cart (list product in customer cart)
@@ -13,7 +14,32 @@ API untuk toko online
 
 # Endpoints
 
-URL: `/available-products`
+## Registration
+
+- URL: `/register`
+- Method: `POST`
+- Body: 
+
+    ```json
+    {
+        "name": "John Doe",
+        "email": "john@doe.com",
+        "phoneNumber": "123",
+        "password": "123"
+    }
+    ```
+
+Response:
+
+```json
+{
+    "error": false,
+    "message": "User berhasil daftar"
+}
+```
+
+
+<!-- URL: `/available-products`
 
 ```json
 {
@@ -40,4 +66,4 @@ URL: `/available-products`
         },
     ]
 }
-```
+``` -->
