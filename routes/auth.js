@@ -21,7 +21,7 @@ router.post('/', async function async (req, res) {
         })
     }
 
-    const isPasswordValid = await comparePassword(password, user.password);
+    const isPasswordValid = comparePassword(password, user.password);
 
     if(!isPasswordValid){
         return res.status(401).json({
@@ -32,6 +32,7 @@ router.post('/', async function async (req, res) {
     // generate token
     var token = jwt.sign({ data: user.id, role: user.role }, 'RAHASIA_NEGARA');
 
+    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
     res.status(200).json({
         message: "Login Berhasil",
         token: token
