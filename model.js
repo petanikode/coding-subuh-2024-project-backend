@@ -35,14 +35,9 @@ Cart.init({
 
 class Transaction extends Model { }
 Transaction.init({
-    date: DataTypes.STRING,
-    // TODO
+    status: DataTypes.ENUM("UNPAID", "CANCELED", "PAID", "PROCESS", "SHIPPING", "DELIVERED"),
+    items: DataTypes.JSON
 }, { sequelize, modelName: 'transaction' })
-
-class TransactionItem extends Model {}
-TransactionItem.init({
-
-}, { sequelize, modelName: 'transactionItem' })
 
 
 // Define relationship
@@ -52,9 +47,6 @@ User.hasMany(Cart)
 Cart.belongsTo(User)
 Cart.belongsTo(Product)
 
-Transaction.hasMany(TransactionItem)
-TransactionItem.hasOne(Product)
-
 // Sync models with database
 sequelize.sync();
 
@@ -62,6 +54,5 @@ module.exports = {
     User,
     Product,
     Cart,
-    Transaction,
-    TransactionItem
+    Transaction
 }

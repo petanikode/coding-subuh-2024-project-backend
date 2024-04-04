@@ -16,21 +16,17 @@ router.post('/', async function async (req, res) {
     })
 
     if(!user){
-        return res.status(401).json({
-            message: "Unauthorized"
-        })
+        return res.status(401).end();
     }
 
     const isPasswordValid = comparePassword(password, user.password);
 
     if(!isPasswordValid){
-        return res.status(401).json({
-            message: "Unauthorized"
-        })
+        return res.status(401).end();
     }
 
     // generate token
-    var token = jwt.sign({ data: user.id, role: user.role }, 'RAHASIA_NEGARA');
+    var token = jwt.sign({ id: user.id, role: user.role }, 'RAHASIA_NEGARA');
 
     res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
     res.status(200).json({
