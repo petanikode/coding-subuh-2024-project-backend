@@ -10,7 +10,7 @@ router.get('/', authToken, async (req, res) => {
     });
 
     if (!user) {
-        res.status(404).json({
+        return res.status(404).json({
             error: true,
             message: "User Not found"
         })

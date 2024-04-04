@@ -9,6 +9,11 @@ const { User } = require('../model');
 router.post('/', async function async (req, res) {
     
     const {email, password} = req.body;
+
+    if(!email || !password){
+        return res.sendStatus(401);
+    }
+
     const user = await User.findOne({
         where: {
             email: email
@@ -16,13 +21,13 @@ router.post('/', async function async (req, res) {
     })
 
     if(!user){
-        return res.status(401).end();
+        return res.sendStatus(401);
     }
 
     const isPasswordValid = comparePassword(password, user.password);
 
     if(!isPasswordValid){
-        return res.status(401).end();
+        return res.sendStatus(401);
     }
 
     // generate token
