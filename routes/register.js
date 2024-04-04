@@ -7,9 +7,13 @@ const { User } = require('../model');
 
 router.post('/', async function async(req, res) {
 
-    const { name, email, password } = req.body;
+    const { name, email, password, phoneNumber } = req.body;
+
+    console.log(phoneNumber);
+  
     const user = await User.create({
         name,
+        phoneNumber,
         email,
         password: await hashPassword(password)
     });
