@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { Cart } = require("../model");
+const { Cart } = require("../db/model");
 const authToken = require('../middleware/authToken');
 
 router.get('/count', authToken, async (req, res) => {

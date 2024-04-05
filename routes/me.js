@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { User } = require("../model");
+const { User } = require("../db/model");
 const authToken = require('../middleware/authToken');
 
 router.get('/', authToken, async (req, res) => {

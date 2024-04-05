@@ -3,15 +3,15 @@ var router = express.Router();
 
 const { hashPassword } = require('../utils/password');
 
-const { User } = require('../model');
+const { User } = require('../db/model');
 
-router.post('/', async function async(req, res) {
+router.post('/', async (req, res) => {
 
     const { name, email, password } = req.body;
     const user = await User.create({
         name,
         email,
-        password: await hashPassword(password)
+        password: hashPassword(password)
     });
 
     if(!user) {

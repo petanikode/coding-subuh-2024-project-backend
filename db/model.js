@@ -3,7 +3,7 @@ const { Sequelize, Model, DataTypes, UUIDV4, HasOne } = require('sequelize');
 // Create Sequelize instance
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './database.sqlite'
+    storage: './db/database.sqlite'
 });
 
 // Define all model

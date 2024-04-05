@@ -4,13 +4,13 @@ var jwt = require('jsonwebtoken');
 
 const { comparePassword } = require('../utils/password');
 
-const { User } = require('../model');
+const { User } = require('../db/model');
 
-router.post('/', async function async (req, res) {
-    
-    const {email, password} = req.body;
+router.post('/', async function async(req, res) {
 
-    if(!email || !password){
+    const { email, password } = req.body;
+
+    if (!email || !password) {
         return res.sendStatus(401);
     }
 
@@ -20,15 +20,21 @@ router.post('/', async function async (req, res) {
         }
     })
 
-    if(!user){
+    if (!user) {
         return res.sendStatus(401);
     }
 
-    const isPasswordValid = comparePassword(password, user.password);
+    const isPasswordCorrect = comparePassword(password, user.password);
 
-    if(!isPasswordValid){
+    if (!isPasswordCorrect) {
         return res.sendStatus(401);
     }
+
+    const redirectURL = user.role === "admin"
+        ? `${req.get('origin')}/admin/index.html`
+        : `${req.get('origin')}/index.html`;
+
+    console.log(redirectURL);
 
     // generate token
     var token = jwt.sign({ id: user.id, role: user.role }, 'RAHASIA_NEGARA');
@@ -36,7 +42,8 @@ router.post('/', async function async (req, res) {
     res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
     res.status(200).json({
         message: "Login Berhasil",
-        token: token
+        token: token,
+        redirectURL,
     })
 })
 

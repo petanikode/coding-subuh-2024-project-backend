@@ -7,6 +7,8 @@ const cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
+const authToken = require('./middleware/authToken');
+const onlyAdmin = require('./middleware/onlyAdmin');
 
 var app = express();
 
@@ -27,7 +29,7 @@ app.use('/me', require('./routes/me'))
 app.use('/users', usersRouter);
 app.use('/cart', require('./routes/cart'));
 
-app.use('/admin/products', require('./routes/admin/product'));
+app.use('/admin/products', authToken, onlyAdmin, require('./routes/admin/product'));
 
 
 module.exports = app;
