@@ -31,8 +31,8 @@ router.post('/', async function async(req, res) {
     }
 
     const redirectURL = user.role === "admin"
-        ? `${req.get('origin')}/admin/index.html`
-        : `${req.get('origin')}/index.html`;
+        ? `admin/index.html`
+        : `index.html`;
 
     console.log(redirectURL);
 

@@ -28,6 +28,7 @@ app.use('/auth', authRouter)
 app.use('/me', require('./routes/me'))
 app.use('/users', usersRouter);
 app.use('/cart', require('./routes/cart'));
+app.use('/products', require('./routes/product'));
 
 app.use('/admin/products', authToken, onlyAdmin, require('./routes/admin/product'));
 
