@@ -5,8 +5,11 @@ const path = require('path');
 const multer = require('multer');
 const { ulid } = require('ulid');
 const fs = require("node:fs");
+const { z } = require('zod');
 
 const { Product } = require('../../db/model');
+const validate = require('../../middleware/validate');
+
 
 
 const storage = multer.diskStorage({
@@ -25,6 +28,18 @@ function removeUploadedFile(filename) {
     return fs.unlinkSync("public/images/uploads/" + filename);
 }
 
+// ZOD validation scheme
+const productSchema = z.object({
+    // In this example we will only validate the request body.
+    body: z.object({
+        // email should be valid and non-empty
+        name: z.string().min(1).max(255),
+        // password should be at least 6 characters
+        price: z.string().min(1).max(255),
+        stock: z.string().min(1).max(255)
+    }),
+});
+
 
 /* GET product listing. */
 router.get('/', async function (req, res, next) {
@@ -32,12 +47,12 @@ router.get('/', async function (req, res, next) {
     res.json(products);
 });
 
-router.post('/', upload.single('image'), async function (req, res) {
+router.post('/', upload.single('image'), validate(productSchema), async function (req, res) {
 
     let product = req.body;
-    const image = req.file.filename ?? "https://placehold.co/600x400?text=no%20image";
-
+    
     if (req.file) {
+        const image = req.file.filename ?? "https://placehold.co/600x400?text=no%20image";
         product = { ...product, image }
     }
 
@@ -83,11 +98,11 @@ router.delete('/:id', async (req, res) => {
     if (product) {
         // hapus data dari db
         Product.destroy({ where: { id: req.params.id } });
-        try {            
+        try {
             // hapus image
             removeUploadedFile(product.image);
         } catch (error) {
-            
+
         }
 
         res.json({ message: "Produk berhasil dihapus" });

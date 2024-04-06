@@ -16,8 +16,8 @@ var app = express();
 app.use(cors());
 app.use(logger('dev'));
 // middleware supaya bisa terima req.body
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -27,7 +27,7 @@ app.use('/register', require('./routes/register'));
 app.use('/auth', authRouter)
 app.use('/me', require('./routes/me'))
 app.use('/users', usersRouter);
-app.use('/cart', require('./routes/cart'));
+app.use('/cart', authToken, require('./routes/cart'));
 app.use('/products', require('./routes/product'));
 
 app.use('/admin/products', authToken, onlyAdmin, require('./routes/admin/product'));
