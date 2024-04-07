@@ -1,0 +1,36 @@
+swagger: "2.0"
+info:
+  title: Coding Subuh Project API
+  description: API description in Markdown.
+  version: 1.0.0
+host: b27b4550-1313-4bb1-afb8-d82e1be332aa-00-6woy1h5xti2b.sisko.replit.dev
+basePath: /
+schemes:
+  - https
+paths:
+  /auth:
+    post:
+      summary: Auth the users
+      parameters:
+        - name: email
+          required: true
+          type: string
+        - name: password
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+  /products:
+    get:
+      summary: Returns a list of products.
+      description: Optional extended description in Markdown.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
