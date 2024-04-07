@@ -84,7 +84,8 @@ router.post('/', async (req, res) => {
     try {
         const added = await Cart.create({ userId, productId, quantity: 1 });
         res.status(200).json({
-            message: "Added to cart"
+          message: "Added to cart",
+          data: added
         })
     } catch (error) {
         res.status(400).json({

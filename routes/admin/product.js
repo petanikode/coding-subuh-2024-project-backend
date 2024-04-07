@@ -65,6 +65,9 @@ router.post('/', upload.single('image'), validate(productSchema), async function
 })
 
 router.put('/:id', upload.single('image'), async (req, res) => {
+
+  console.log("DATA BARU:", req.body)
+  
     const oldProduct = await Product.findByPk(req.params.id);
     if (oldProduct) {
         let newProduct = req.body;
