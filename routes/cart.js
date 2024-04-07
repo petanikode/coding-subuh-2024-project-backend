@@ -38,7 +38,7 @@ router.get('/total-price', async (req, res) => {
 
     let totalPrice = 0;
 
-    items.forEach(item => totalPrice += item.product.price);
+    items.forEach(item => totalPrice += Number(item.product.price) * Number(item.quantity));
 
     res.status(200).json(totalPrice);
 })
@@ -56,7 +56,7 @@ router.put('/update-qty/:id', async (req, res) => {
 
     res.json({
         message: "Qty updated",
-        data: item
+        data: item,
     })
 })
 
