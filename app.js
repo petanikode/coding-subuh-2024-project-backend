@@ -39,6 +39,7 @@ app.use("/me", require("./routes/me"));
 app.use("/users", usersRouter);
 app.use("/cart", authToken, require("./routes/cart"));
 app.use("/products", require("./routes/product"));
+app.use("/checkout", authToken, require("./routes/checkout"));
 
 app.use(
   "/admin/products",

@@ -35,8 +35,20 @@ Cart.init({
 
 class Transaction extends Model { }
 Transaction.init({
-    status: DataTypes.ENUM("UNPAID", "CANCELED", "PAID", "PROCESS", "SHIPPING", "DELIVERED"),
-    items: DataTypes.JSON
+    id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4
+    },
+    status: {
+        type: DataTypes.ENUM("UNPAID", "CANCELED", "PAID", "PROCESS", "SHIPPING", "DELIVERED"),
+        defaultValue: "UNPAID"
+    },
+    total: DataTypes.DECIMAL(10, 2),
+    invoiceId: DataTypes.STRING,
+    invoiceUrl: DataTypes.STRING,
+    details: DataTypes.JSON
 }, { sequelize, modelName: 'transaction' })
 
 

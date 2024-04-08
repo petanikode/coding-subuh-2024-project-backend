@@ -3,13 +3,32 @@ info:
   title: Coding Subuh Project API
   description: API description in Markdown.
   version: 1.0.0
-host: b27b4550-1313-4bb1-afb8-d82e1be332aa-00-6woy1h5xti2b.sisko.replit.dev
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+  - url: b27b4550-1313-4bb1-afb8-d82e1be332aa-00-6woy1h5xti2b.sisko.replit.dev
+    description: Sandbox server on Replit
+
+# host: b27b4550-1313-4bb1-afb8-d82e1be332aa-00-6woy1h5xti2b.sisko.replit.dev
 basePath: /
 schemes:
-  - https
+  - http
+tags:
+  - name: auth
+    description: Authenticate User
+  - name: admin
+    description: Admin
+  - name: product
+    description: Product for customers
+  - name: cart
+    description: Operation to the cart
+
 paths:
   /auth:
     post:
+      tags:
+        - auth
       summary: Auth the users
       parameters:
         - name: email
@@ -27,6 +46,8 @@ paths:
           description: Unauthorized
   /products:
     get:
+      tags:
+        - product
       summary: Returns a list of products.
       description: Optional extended description in Markdown.
       produces:
@@ -34,3 +55,19 @@ paths:
       responses:
         200:
           description: OK
+  /cart:
+    post:
+      tags:
+        - cart
+      summary: Add product to cart.
+      description: Add product to cart.
+      parameters:
+        - name: productId
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  
