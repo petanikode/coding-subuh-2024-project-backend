@@ -40,12 +40,20 @@ app.use("/users", usersRouter);
 app.use("/cart", authToken, require("./routes/cart"));
 app.use("/products", require("./routes/product"));
 app.use("/checkout", require("./routes/checkout"));
+app.use("/transactions", require("./routes/transaction"));
 
 app.use(
   "/admin/products",
   authToken,
   onlyAdmin,
   require("./routes/admin/product"),
+);
+
+app.use(
+  "/admin/transactions",
+  authToken,
+  onlyAdmin,
+  require("./routes/admin/transaction"),
 );
 
 module.exports = app;
