@@ -4,12 +4,15 @@ API untuk toko online
 
 # List of endpoint
 
-- `/register/` -- User registrations
-- `/auth/` -- admin authentication
-- `/admin/product` -- product management (CRUD product)
-- `/admin/transaction` -- transaction list made by user/customer
-- `/cart` -- customer cart (list product in customer cart)
-- `/checkout` -- customer checkout (trx, payment)
+- POST `/register/` -- User registrations
+- POST `/auth/` -- admin authentication
+- GET `/me` -- get current logged user
+- GET, POST`/admin/product` -- product management (CRUD product)
+- GET, PUT, DELETE `/admin/product/:id` -- get product by ID or update/delete product by ID
+- GET `/admin/transactions` -- transaction list made by user/customer
+- POST, GET `/cart` -- customer cart (list product in customer cart)
+- POST `/checkout` -- customer checkout (trx, payment)
+- GET `/transactions/` -- list of transaction that user made
 
 
 # Endpoints
